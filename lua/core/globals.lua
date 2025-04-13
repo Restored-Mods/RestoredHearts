@@ -1,0 +1,13 @@
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "PlayerData", {}, TSIL.Enums.VariablePersistenceMode.RESET_RUN)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "FamiliarData", {}, TSIL.Enums.VariablePersistenceMode.RESET_RUN)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "CustomHealthAPISave", "", TSIL.Enums.VariablePersistenceMode.RESET_RUN)
+
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "DSS", {}, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "HeartStyleRender", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "PerfectIllusion", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionInstaDeath", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "SunHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "ImmortalHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
+TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "ActOfContritionImmortal", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)

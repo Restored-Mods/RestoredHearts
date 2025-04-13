@@ -1,0 +1,10 @@
+if not EID then return end
+-- Mod Icon (TODO)
+EID:setModIndicatorName("Restored Hearts")
+local iconSprite = Sprite()
+iconSprite:Load("gfx/eid_restored_icon.anm2", true)
+--EID:addIcon("Restored Items Icon", "Icon", 0, 10, 9, 1, 1, iconSprite)
+--EID:setModIndicatorIcon("Restored Items Icons")
+EID:addIcon("ImmortalHeart", "Icon", 0, 10, 9, 1, 1, iconSprite)
+EID:addIcon("SunHeart", "Icon", 1, 10, 9, 1, 1, iconSprite)
+EID:addIcon("IllusionHeart", "Icon", 2, 10, 9, 1, 1, iconSprite)
