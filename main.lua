@@ -1,6 +1,3 @@
-
-if RestoredCollection ~= nil and RestoredCollection.Enums ~= nil and RestoredCollection.Enum.Pickups ~= nil
-and RestoredCollection.Enum.Pickups.Hearts ~= nil then return end
 RestoredHearts = RegisterMod("Restored Hearts", 1)
 
 local LOCAL_TSIL = require("lua.extraLibs.loi.TSIL")
