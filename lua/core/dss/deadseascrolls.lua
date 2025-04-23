@@ -2,6 +2,8 @@ local DSSModName = "Restored Hearts"
 
 local DSSCoreVersion = 7
 
+local InGame = false
+
 local function HeartGfxSuffix(var, hud)
     local suf = ""
     if var == 2 then
@@ -103,11 +105,11 @@ end
 local MenuProvider = {}
 
 local function GetDSSOptions()
-    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "DSS")
+    return RestoredHearts.SaveManager.GetDeadSeaScrollsSave()
 end
 
 function MenuProvider.SaveSaveData()
-    TSIL.SaveManager.SaveToDisk()
+    RestoredHearts.SaveManager.Save()
 end
 
 function MenuProvider.GetPaletteSetting()
@@ -171,9 +173,125 @@ local DSSInitializerFunction = include("lua.core.dss.dssmenucore")
 -- This function returns a table that some useful functions and defaults are stored on
 local dssmod = DSSInitializerFunction(DSSModName, DSSCoreVersion, MenuProvider)
 
-local function InitImGuiMenu()
-    TSIL.SaveManager.LoadFromDisk()
+local function UpdateImGuiMenu(IsDataInitialized)
+	if IsDataInitialized then
 
+        if ImGui.ElementExists("restotredHeartSettingsNoWay") then
+			ImGui.RemoveElement("restotredHeartSettingsNoWay")
+		end
+
+		if not ImGui.ElementExists("RestoredHeartsSettingsHeartsStyle") then
+            ImGui.AddCombobox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsHeartsStyle", "Hearts sprites", function(index, val)
+                local var = index + 1
+                RestoredHearts:AddDefaultFileSave("HeartStyleRender", var)
+                ChangeUIHeartsAnim(var)
+            end, {
+                "Vanilla",
+                "Aladar",
+                "Lifebar",
+                "Beautiful",
+                "Flashy", 
+                "Better icons", 
+                "Eternal update",
+                "Re-color",
+                "Sussy",
+            },
+            0)
+        
+            ImGui.SetTooltip("RestoredHeartsSettingsHeartsStyle", "Change appearance of hearts")
+        end
+
+    
+        if not ImGui.ElementExists("RestoredHeartsSettingsActGivesImmortalHearts") then
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsActGivesImmortalHearts", "Act of Contrition gives Immortal Heart", function(val)
+                UpdateActOfContritionEncyclopedia(val)
+                RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", val)
+            end, true)
+        
+            ImGui.SetTooltip("RestoredHeartsSettingsActGivesImmortalHearts", "Replaces Act of Contrition's eternal heart with\nan Immortal Heart like in Antibirth")
+        end
+    
+    
+        for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
+            if ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
+                ImGui.AddDragInteger("RestoredHeartsSettingsWindow", "RestoredHeartsSettings"..str.."Heart", str.." Heart", function(val)
+                    RestoredHearts:AddDefaultFileSave(str.."HeartSpawnChance", val)
+                end, 20, 1, 0, 100)
+                ImGui.SetTooltip("RestoredHeartsSettings"..str.."Heart", str.." Heart spawn chance")
+            end
+        end
+    
+        if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPlaceBombs") then
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPlaceBombs", "Can illusions place bombs?", function(val)
+                IllusionMod.CanPlaceBomb = val
+            end, false)
+        end
+    
+        
+    
+        if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPerfect", "Create perfect Illusion for modded characters?", function(val)
+                IllusionMod.PerfectIllusion = val
+            end, false)
+        end
+    
+        
+    
+        if not ImGui.ElementExists("RestoredHeartsSettingsIllusionInstaDeath") then
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionInstaDeath", "Illusion insta death", function(val)
+                IllusionMod.InstaDeath = val
+            end, false)
+            ImGui.SetTooltip("RestoredHeartsSettingsIllusionInstaDeath", "Illusions skip death animation and removed immediately")
+        end
+    
+        ImGui.AddCallback("RestoredHeartsMenu", ImGuiCallback.Render, function()
+            ImGui.UpdateData("RestoredHeartsSettingsHeartsStyle", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("HeartStyleRender") - 1)
+            ImGui.UpdateData("RestoredHeartsSettingsActGivesImmortalHearts", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
+            for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
+                ImGui.UpdateData("RestoredHeartsSettings"..str.."Heart", ImGuiData.Value, RestoredHearts:GetDefaultFileSave(str.."HeartSpawnChance"))
+            end
+            ImGui.UpdateData("RestoredHeartsSettingsIllusionPlaceBombs", ImGuiData.Value, IllusionMod.CanPlaceBomb)
+            ImGui.UpdateData("RestoredHeartsSettingsIllusionPerfect", ImGuiData.Value, IllusionMod.PerfectIllusion)
+            ImGui.UpdateData("RestoredHeartsSettingsIllusionInstaDeath", ImGuiData.Value, IllusionMod.InstaDeath)
+        end)
+	else
+
+		ImGui.RemoveCallback("RestoredHeartsMenu", ImGuiCallback.Render)
+
+		if ImGui.ElementExists("RestoredHeartsSettingsHeartsStyle") then
+			ImGui.RemoveElement("RestoredHeartsSettingsHeartsStyle")
+		end
+
+        if ImGui.ElementExists("RestoredHeartsSettingsActGivesImmortalHearts") then
+			ImGui.RemoveElement("RestoredHeartsSettingsActGivesImmortalHearts")
+		end
+
+        for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
+            if ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
+                ImGui.RemoveElement("RestoredHeartsSettings"..str.."Heart")
+            end
+        end
+
+        if ImGui.ElementExists("RestoredHeartsSettingsIllusionPlaceBombs") then
+			ImGui.RemoveElement("RestoredHeartsSettingsIllusionPlaceBombs")
+		end
+
+        if ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
+			ImGui.RemoveElement("RestoredHeartsSettingsIllusionPerfect")
+		end
+
+        if ImGui.ElementExists("RestoredHeartsSettingsIllusionInstaDeath") then
+			ImGui.RemoveElement("RestoredHeartsSettingsIllusionInstaDeath")
+		end
+
+        if not ImGui.ElementExists("restotredHeartSettingsNoWay") then
+			ImGui.AddText("RestoredHeartsSettingsWindow", "Options will be available after loading the game.", true, "restotredHeartSettingsNoWay")
+		end
+
+	end
+end
+
+local function InitImGuiMenu()
     if not ImGui.ElementExists("RestoredMods") then
         ImGui.CreateMenu("RestoredMods", "Restored Mods")
     end
@@ -193,98 +311,10 @@ local function InitImGuiMenu()
     ImGui.LinkWindowToElement("RestoredHeartsSettingsWindow", "RestoredHeartsSettings")
 
     ImGui.SetWindowSize("RestoredHeartsSettingsWindow", 600, 420)
-
-    if ImGui.ElementExists("RestoredHeartsSettingsHeartsStyle") then
-        ImGui.RemoveElement("RestoredHeartsSettingsHeartsStyle")
-    end
-
-    ImGui.AddCombobox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsHeartsStyle", "Hearts sprites", function(index, val)
-        local var = index + 1
-        TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "HeartStyleRender", var)
-        ChangeUIHeartsAnim(var)
-        TSIL.SaveManager.SaveToDisk()
-    end, {
-        "Vanilla",
-        "Aladar",
-        "Lifebar",
-        "Beautiful",
-        "Flashy", 
-        "Better icons", 
-        "Eternal update",
-        "Re-color",
-        "Sussy",
-    },
-    0)
-
-    ImGui.SetTooltip("RestoredHeartsSettingsHeartsStyle", "Change appearance of hearts")
-
-    if ImGui.ElementExists("RestoredHeartsSettingsActGivesImmortalHearts") then
-        ImGui.RemoveElement("RestoredHeartsSettingsActGivesImmortalHearts")
-    end
-    
-    ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsActGivesImmortalHearts", "Act of Contrition gives Immortal Heart", function(val)
-        local newOption = val and 1 or 2
-        UpdateActOfContritionEncyclopedia(val == 1)
-        TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "ActOfContritionImmortal", newOption)
-        TSIL.SaveManager.SaveToDisk()
-    end, true)
-
-    ImGui.SetTooltip("RestoredHeartsSettingsActGivesImmortalHearts", "Replaces Act of Contrition's eternal heart with\nan Immortal Heart like in Antibirth")
-
-    for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
-        if ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
-            ImGui.RemoveElement("RestoredHeartsSettings"..str.."Heart")
-        end
-        ImGui.AddDragInteger("RestoredHeartsSettingsWindow", "RestoredHeartsSettings"..str.."Heart", str.." Heart", function(val)
-            TSIL.SaveManager.SetPersistentVariable(RestoredHearts, str.."HeartSpawnChance", val)
-            TSIL.SaveManager.SaveToDisk()
-        end, 20, 1, 0, 100)
-        ImGui.SetTooltip("RestoredHeartsSettings"..str.."Heart", str.." Heart spawn chance")
-    end
-
-    if ImGui.ElementExists("RestoredHeartsSettingsIllusionPlaceBombs") then
-        ImGui.RemoveElement("RestoredHeartsSettingsIllusionPlaceBombs")
-    end
-
-    ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPlaceBombs", "Can illusions place bombs?", function(val)
-        local newOption = val and 2 or 1
-        TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs", newOption)
-        TSIL.SaveManager.SaveToDisk()
-    end, false)
-
-    if ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
-        ImGui.RemoveElement("RestoredHeartsSettingsIllusionPerfect")
-    end
-
-    ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPerfect", "Create perfect Illusion for modded characters?", function(val)
-        local newOption = val and 2 or 1
-        TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "PerfectIllusion", newOption)
-        TSIL.SaveManager.SaveToDisk()
-    end, false)
-
-    if ImGui.ElementExists("RestoredHeartsSettingsIllusionInstaDeath") then
-        ImGui.RemoveElement("RestoredHeartsSettingsIllusionInstaDeath")
-    end
-
-    ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionInstaDeath", "Illusion insta death", function(val)
-        local newOption = val and 2 or 1
-        TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "IllusionInstaDeath", newOption)
-        TSIL.SaveManager.SaveToDisk()
-    end, false)
-    ImGui.SetTooltip("RestoredHeartsSettingsIllusionInstaDeath", "Illusions skip death animation and removed immediately")
-
-    ImGui.AddCallback("RestoredHeartsMenu", ImGuiCallback.Render, function()
-        ImGui.UpdateData("RestoredHeartsSettingsHeartsStyle", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "HeartStyleRender") - 1)
-        ImGui.UpdateData("RestoredHeartsSettingsActGivesImmortalHearts", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ActOfContritionImmortal") == 1)
-        for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
-            ImGui.UpdateData("RestoredHeartsSettings"..str.."Heart", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, str.."HeartSpawnChance"))
-        end
-        ImGui.UpdateData("RestoredHeartsSettingsIllusionPlaceBombs", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs") > 1)
-        ImGui.UpdateData("RestoredHeartsSettingsIllusionPerfect", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "PerfectIllusion") > 1)
-        ImGui.UpdateData("RestoredHeartsSettingsIllusionInstaDeath", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "IllusionInstaDeath") > 1)
-    end)
     
 end
+
+
 
 
 -- Creating a menu like any other DSS menu is a simple process.
@@ -350,13 +380,13 @@ local restoredheartssdirectory = {
                 -- The "load" function for a button should return what its current setting should be
                 -- This generally means looking at your mod's save data, and returning whatever setting you have stored
                 load = function()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "HeartStyleRender") or 1
+                    return RestoredHearts:GetDefaultFileSave("HeartStyleRender") or 1
                 end,
 
                 -- When the menu is closed, "store" will be called on all settings-buttons
                 -- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
                 store = function(var)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "HeartStyleRender", var)
+                    RestoredHearts:AddDefaultFileSave("HeartStyleRender", var)
                     ChangeUIHeartsAnim(var)
                 end,
 
@@ -383,13 +413,13 @@ local restoredheartssdirectory = {
                 -- The "load" function for a button should return what its current setting should be
                 -- This generally means looking at your mod's save data, and returning whatever setting you have stored
                 load = function()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ActOfContritionImmortal") or 1
+                    return RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") and 1 or 2
                 end,
 
                 -- When the menu is closed, "store" will be called on all settings-buttons
                 -- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
                 store = function(var)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "ActOfContritionImmortal", var)
+                    RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", var == 1)
                     UpdateActOfContritionEncyclopedia(var == 1)
                 end,
 
@@ -416,10 +446,10 @@ local restoredheartssdirectory = {
                 variable = "ImmortalHeartSpawnChance",
 
                 load = function()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ImmortalHeartSpawnChance") or 20
+                    return RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") or 20
                 end,
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "ImmortalHeartSpawnChance", newOption)
+                    RestoredHearts:AddDefaultFileSave("ImmortalHeartSpawnChance", newOption)
                 end,
 
                 tooltip = {strset = {'how often', 'immortal hearts', 'can spawn?'}},
@@ -444,10 +474,10 @@ local restoredheartssdirectory = {
                 variable = "SunHeartSpawnChance",
 
                 load = function()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "SunHeartSpawnChance") or 20
+                    return RestoredHearts:GetDefaultFileSave("SunHeartSpawnChance") or 20
                 end,
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "SunHeartSpawnChance", newOption)
+                    RestoredHearts:AddDefaultFileSave("SunHeartSpawnChance", newOption)
                 end,
 
                 tooltip = {strset = {'how often', 'sun hearts', 'can spawn?'}},
@@ -472,10 +502,10 @@ local restoredheartssdirectory = {
                 variable = "IllusionHeartSpawnChance",
 
                 load = function()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "IllusionHeartSpawnChance") or 20
+                    return RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") or 20
                 end,
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "IllusionHeartSpawnChance", newOption)
+                    RestoredHearts:AddDefaultFileSave("IllusionHeartSpawnChance", newOption)
                 end,
 
                 tooltip = {strset = {'how often', 'illusion hearts', 'can spawn?'}},
@@ -489,11 +519,11 @@ local restoredheartssdirectory = {
                 variable = 'IllusionClonesPlaceBombs',
 
                 load = function ()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs") or 1
+                    return IllusionMod.CanPlaceBomb and 2 or 1
                 end,
 
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs", newOption)
+                    IllusionMod.CanPlaceBomb = newOption == 2
                 end,
 
                 tooltip = {strset = {'can illusions', 'place bombs?'}}
@@ -507,11 +537,11 @@ local restoredheartssdirectory = {
                 variable = 'PerfectIllusion',
 
                 load = function ()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "PerfectIllusion") or 1
+                    return IllusionMod.PerfectIllusion and 2 or 1
                 end,
 
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "PerfectIllusion", newOption)
+                    IllusionMod.PerfectIllusion = newOption == 2
                 end,
 
                 tooltip = {strset = {'create perfect', 'illusions for', 'modded', 'characters?'}}
@@ -525,11 +555,11 @@ local restoredheartssdirectory = {
                 variable = 'IllusionInstaDeath',
 
                 load = function ()
-                    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "IllusionInstaDeath") or 1
+                    return IllusionMod.InstaDeath and 2 or 1
                 end,
 
                 store = function(newOption)
-                    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "IllusionInstaDeath", newOption)
+                    IllusionMod.InstaDeath = newOption == 2
                 end,
 
                 tooltip = {strset = {'illusions skip', 'death animation', 'and removed', 'immediately'}}
@@ -667,11 +697,23 @@ DeadSeaScrollsMenu.AddMenu(modMenuName, {
 
 if REPENTOGON then
     InitImGuiMenu()
+    UpdateImGuiMenu(false)
+    local function UpdateImGuiOnRender()
+		if not Isaac.IsInGame() and InGame then
+			UpdateImGuiMenu(false)
+			InGame = false
+		elseif Isaac.IsInGame() and not InGame then
+			UpdateImGuiMenu(true)
+			InGame = true
+		end
+	end
+	RestoredHearts:AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, UpdateImGuiOnRender)
+	RestoredHearts:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.LATE, UpdateImGuiOnRender)
 end
 
 RestoredHearts:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE + 10, function()
-    UpdateActOfContritionEncyclopedia(TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ActOfContritionImmortal") == 1)
-    ChangeUIHeartsAnim(TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "HeartStyleRender"))
+    UpdateActOfContritionEncyclopedia(RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
+    ChangeUIHeartsAnim(RestoredHearts:GetDefaultFileSave("HeartStyleRender"))
 end)
 
 include("lua.core.dss.changelog")

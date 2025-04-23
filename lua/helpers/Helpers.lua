@@ -220,57 +220,6 @@ function Helpers.GetPlayerIndex(player)
 	return player:GetCollectibleRNG(id):GetSeed()
 end
 
-function Helpers.GetEntityData(entity)
-	if entity then
-		if entity:ToPlayer() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "PlayerData")
-			local player = entity:ToPlayer()
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
-				player = player:GetOtherTwin()
-			end
-			if not player then return nil end
-			local index = tostring(Helpers.GetPlayerIndex(player))
-			if not data[index] then
-				data[index] = {}
-			end
-			if not data[index].BethsHeartIdentifier then
-				data[index].BethsHeartIdentifier = tonumber(index)
-			end
-			return data[index]
-		elseif entity:ToFamiliar() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "FamiliarData")
-			local index = tostring(entity:ToFamiliar().InitSeed)
-			if not data[index] then
-				data[index] = {}
-			end
-			return data[index]
-		end
-	end
-	return nil
-end
-
-function Helpers.RemoveEntityData(entity)
-	if entity then
-		local index
-		if entity:ToPlayer() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "PlayerData")
-			local player = entity:ToPlayer()
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
-				player = player:GetOtherTwin()
-			end
-			if not player then return nil end
-			index = tostring(Helpers.GetPlayerIndex(player))
-			--local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "PlayerData")
-			data[index] = nil
-		elseif entity:ToFamiliar() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "FamiliarData")
-			index = tostring(entity:ToFamiliar().InitSeed)
-			--local data = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "FamiliarData")
-			data[index] = nil
-		end
-	end
-end
-
 function Helpers.GetBombExplosionRadius(bomb)
 	local damage = bomb.ExplosionDamage
 	local radiusMult = bomb.RadiusMultiplier

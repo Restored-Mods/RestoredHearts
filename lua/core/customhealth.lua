@@ -99,7 +99,7 @@ local function SpriteChange(_, entity)
 	or entity.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL then
 		local sprite = entity:GetSprite()
 		local spritename = "gfx/items/pick ups/pickup_001_remix_heart"
-		local style = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "HeartStyleRender")
+		local style = RestoredHearts:GetDefaultFileSave("HeartStyleRender")
 		spritename = spritename..HeartGfxSuffix(style)..".png"
 		
 		sprite:ReplaceSpritesheet(0,spritename)
@@ -135,22 +135,12 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
 end)
 
 CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.PRE_RENDER_HEART, 0, function(player, index, hp, redHP, filename, animname, color, offset)
-	local data = Helpers.GetEntityData(player)
+	local data = IllusionMod.GetData(player)
 	if data.IsIllusion and not player:IsDead() then
-		local var = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "HeartStyleRender")
+		local var = RestoredHearts:GetDefaultFileSave("HeartStyleRender")
 		local animfile = "gfx/ui/ui_remix_hearts"..HeartGfxSuffix(var, true)
 		return {AnimationName = "IllusionHeartFull", AnimationFilename = animfile..".anm2"}
 	end
-end)
-
-CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.ON_SAVE, 0, function(save, isSaving)
-    TSIL.SaveManager.SetPersistentVariable(RestoredHearts, "CustomHealthAPISave", save)
-    TSIL.SaveManager.SaveToDisk()
-end)
-
-CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.ON_LOAD, 0, function()
-    TSIL.SaveManager.LoadFromDisk()
-    return TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "CustomHealthAPISave")
 end)
 
 CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.PRE_SUMPTORIUM_CLOT_INIT, 0, function(familiar, key)

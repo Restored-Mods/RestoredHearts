@@ -1,8 +1,8 @@
 local version = 0.96
 
-local root = "lua.extraLibs.APIs.customhealthapi."
+local root = "lua.extraLibs.APIs.customhealthapi." 
 local modname = "Custom Health API (Restored Hearts)"
-local modinitials = "CHARH"
+local modinitials = "RMRH"
 
 CustomHealthAPI = CustomHealthAPI or {}
 

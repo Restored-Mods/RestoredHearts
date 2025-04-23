@@ -1,13 +1,38 @@
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "PlayerData", {}, TSIL.Enums.VariablePersistenceMode.RESET_RUN)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "FamiliarData", {}, TSIL.Enums.VariablePersistenceMode.RESET_RUN)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "CustomHealthAPISave", "", TSIL.Enums.VariablePersistenceMode.RESET_RUN)
+RestoredHearts.Game = Game()
+RestoredHearts.Level = function()
+	return RestoredHearts.Game:GetLevel()
+end
+RestoredHearts.Room = function()
+	return RestoredHearts.Game:GetRoom()
+end
 
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "DSS", {}, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "HeartStyleRender", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionClonesPlaceBombs", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "PerfectIllusion", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "IllusionInstaDeath", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "SunHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "ImmortalHeartSpawnChance", 20, TSIL.Enums.VariablePersistenceMode.NONE, true)
-TSIL.SaveManager.AddPersistentVariable(RestoredHearts, "ActOfContritionImmortal", 1, TSIL.Enums.VariablePersistenceMode.NONE, true)
+RestoredHearts:AddDefaultFileSave("HeartStyleRender", 1)
+RestoredHearts:AddDefaultFileSave("IllusionHeartSpawnChance", 20)
+RestoredHearts:AddDefaultFileSave("SunHeartSpawnChance", 20)
+RestoredHearts:AddDefaultFileSave("ImmortalHeartSpawnChance", 20)
+RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", false)
+
+RestoredHearts.SaveManager.Utility.AddDefaultRunData(RestoredHearts.SaveManager.DefaultSaveKeys.GLOBAL, {CustomHealthAPI = "", IllusionData = {}})
+
+RestoredHearts.RNG = RNG()
+
+RestoredHearts:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+	RestoredHearts.RNG:SetSeed(RestoredHearts.Game:GetSeeds():GetStartSeed())
+end)
+
+RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.PRE_DATA_SAVE, function(_, data)
+	local newData = {
+		game = {
+			run = {
+				IllusionData = IllusionMod.GetSaveData(),
+			},
+		},
+	}
+	return RestoredHearts.SaveManager.Utility.PatchSaveFile(newData, data)
+end)
+
+RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.POST_DATA_LOAD, function(_, data, luaMod)
+	if not luaMod then
+        IllusionMod.LoadSaveData(data.game.run.IllusionData)
+	end
+end)

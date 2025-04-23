@@ -30,7 +30,7 @@ RestoredHearts:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, ComplianceSunLo
 
 ---@param pickup EntityPickup
 function ComplianceSunLocal:PreEternalSpawn(pickup)
-	if TSIL.Random.GetRandom(pickup.InitSeed) >= (1 - TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "SunHeartSpawnChance") / 100) 
+	if TSIL.Random.GetRandom(pickup.InitSeed) >= (1 - RestoredHearts:GetDefaultFileSave("SunHeartSpawnChance") / 100) 
 	and pickup.SubType == HeartSubType.HEART_ETERNAL then
 		pickup:Morph(pickup.Type, PickupVariant.PICKUP_HEART, RestoredHearts.Enums.Pickups.Hearts.HEART_SUN, true, true)
 	end

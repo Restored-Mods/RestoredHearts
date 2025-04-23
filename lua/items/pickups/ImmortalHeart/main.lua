@@ -31,7 +31,7 @@ RestoredHearts:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, ComplianceImmor
 if REPENTOGON then
 	function ComplianceImmortalLocal:ActOfImmortal(collectible, charge, firstTime, slot, VarData, player)
 		if firstTime and collectible == CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION
-		and TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ActOfContritionImmortal") == 1 then
+		and RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") then
 			player:AddEternalHearts(-1)
 			ComplianceImmortal.AddImmortalHearts(player, 2)
 		end
@@ -62,7 +62,7 @@ else
 
 	function ComplianceImmortalLocal:ActOfImmortal(player, cache)
 		if player.Parent ~= nil then return end
-		if TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ActOfContritionImmortal") == 2 then return end
+		if RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") == false then return end
 		if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
 			player = player:GetMainTwin()
 		end
@@ -101,7 +101,7 @@ RestoredHearts:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, ComplianceImmo
 
 ---@param pickup EntityPickup
 function ComplianceImmortalLocal:PreEternalSpawn(pickup)
-	if TSIL.Random.GetRandom(pickup.InitSeed) >= (1 - TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "ImmortalHeartSpawnChance") / 100) 
+	if TSIL.Random.GetRandom(pickup.InitSeed) >= (1 - RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") / 100)
 	and pickup.SubType == HeartSubType.HEART_ETERNAL then
 		pickup:Morph(pickup.Type, PickupVariant.PICKUP_HEART, RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL, true, true)
 	end

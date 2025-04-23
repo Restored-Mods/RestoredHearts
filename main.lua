@@ -7,6 +7,10 @@ include("lua.helpers.Helpers")
 
 --apis
 include("lua.extraLibs.APIs.customhealthapi.core")
+RestoredHearts.SaveManager = include("lua.core.save_manager")
+RestoredHearts.SaveManager.Init(RestoredHearts)
+include("lua.core.saving_system")
+
 include("lua.extraLibs.APIs.ImmortalAPI")
 include("lua.extraLibs.APIs.SunAPI")
 include("lua.extraLibs.APIs.IllusionAPI")
