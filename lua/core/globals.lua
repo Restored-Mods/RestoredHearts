@@ -14,8 +14,6 @@ RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", false)
 
 RestoredHearts.SaveManager.Utility.AddDefaultRunData(RestoredHearts.SaveManager.DefaultSaveKeys.GLOBAL, {CustomHealthAPI = "", IllusionData = {}})
 
-RestoredHearts.SaveManager.Debug = true
-
 RestoredHearts.RNG = RNG()
 
 RestoredHearts:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
