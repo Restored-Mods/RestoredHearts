@@ -1,15 +1,9 @@
 local IllusionModLocal = {} --For local functions, so other mods don't have access to these
-local Helpers = RestoredHearts.Helpers
 local sfx = SFXManager()
 
 function IllusionModLocal:preIllusionHeartPickup(pickup, collider)
 	local player = collider:ToPlayer()
 	if player then
-		local d = IllusionMod.GetData(player)
-        if not d then return end
-		if d.IsIllusion then
-			return d.IsIllusion and true or pickup:IsShopItem()
-		end
 		if pickup.Variant == PickupVariant.PICKUP_HEART and pickup.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_ILLUSION and not player.Parent then
 			pickup.Velocity = Vector.Zero
 			pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE

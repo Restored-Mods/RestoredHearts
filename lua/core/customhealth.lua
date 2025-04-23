@@ -1,5 +1,4 @@
 local sfx = SFXManager()
-local Helpers = RestoredHearts.Helpers
 
 if CustomHealthAPI and CustomHealthAPI.Library and CustomHealthAPI.Library.UnregisterCallbacks then
     CustomHealthAPI.Library.UnregisterCallbacks("RestoredHearts")
@@ -141,6 +140,20 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
 		local animfile = "gfx/ui/ui_remix_hearts"..HeartGfxSuffix(var, true)
 		return {AnimationName = "IllusionHeartFull", AnimationFilename = animfile..".anm2"}
 	end
+end)
+
+CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.ON_SAVE, 0, function(save, isSaving)
+    if isSaving then
+        local chapiSave = RestoredHearts:RunSave()
+        chapiSave.CustomHealthAPI = save
+    end
+end)
+
+CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.ON_LOAD, 0, function()
+    local chapiSave = RestoredHearts:RunSave()
+    if chapiSave.CustomHealthAPI ~= nil and chapiSave.CustomHealthAPI ~= "" then
+        return chapiSave.CustomHealthAPI
+    end
 end)
 
 CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Callbacks.PRE_SUMPTORIUM_CLOT_INIT, 0, function(familiar, key)
