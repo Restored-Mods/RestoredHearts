@@ -254,7 +254,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
             ImGui.SetTooltip("RestoredHeartsSettingsIllusionInstaDeath", "Illusions skip death animation and removed immediately")
         end
     
-        ImGui.AddCallback("RestoredHeartsMenu", ImGuiCallback.Render, function()
+        ImGui.AddCallback("RestoredHeartsSettingsWindow", ImGuiCallback.Render, function()
             ImGui.UpdateData("RestoredHeartsSettingsHeartsStyle", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("HeartStyleRender") - 1)
             ImGui.UpdateData("RestoredHeartsSettingsActGivesImmortalHearts", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
             for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
@@ -266,7 +266,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
         end)
 	else
 
-		ImGui.RemoveCallback("RestoredHeartsMenu", ImGuiCallback.Render)
+		ImGui.RemoveCallback("RestoredHeartsSettingsWindow", ImGuiCallback.Render)
 
 		if ImGui.ElementExists("RestoredHeartsSettingsHeartsStyle") then
 			ImGui.RemoveElement("RestoredHeartsSettingsHeartsStyle")

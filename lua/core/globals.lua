@@ -6,12 +6,6 @@ RestoredHearts.Room = function()
 	return RestoredHearts.Game:GetRoom()
 end
 
-RestoredHearts:AddDefaultFileSave("HeartStyleRender", 1)
-RestoredHearts:AddDefaultFileSave("IllusionHeartSpawnChance", 20)
-RestoredHearts:AddDefaultFileSave("SunHeartSpawnChance", 20)
-RestoredHearts:AddDefaultFileSave("ImmortalHeartSpawnChance", 20)
-RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", false)
-
 RestoredHearts.SaveManager.Utility.AddDefaultRunData(RestoredHearts.SaveManager.DefaultSaveKeys.GLOBAL, {CustomHealthAPI = "", IllusionData = {}})
 
 RestoredHearts.RNG = RNG()
@@ -31,8 +25,32 @@ RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.PRE_DATA_SAV
 	return RestoredHearts.SaveManager.Utility.PatchSaveFile(newData, data)
 end)
 
+RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.PRE_DATA_LOAD, function(_, data, luaMod)
+	if not luaMod then
+        local settings = {
+			["HeartStyleRender"] = 1,
+			["IllusionHeartSpawnChance"] = 20,
+			["SunHeartSpawnChance"] = 20,
+			["ImmortalHeartSpawnChance"] = 20,
+			["ActOfContritionImmortal"] = false,
+			["IllusionCanPlaceBomb"] = IllusionMod.CanPlaceBomb,
+			["IllusionInstaDeath"] = IllusionMod.InstaDeath,
+			["IllusionPerfectIllusion"] = IllusionMod.PerfectIllusion,
+		}
+		for k,v in pairs(settings) do
+			if data.file.other[k] == nil then
+				data.file.other[k] = v
+			end
+		end
+		return data
+	end
+end)
+
 RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.POST_DATA_LOAD, function(_, data, luaMod)
 	if not luaMod then
         IllusionMod.LoadSaveData(data.game.run.IllusionData)
+		IllusionMod.CanPlaceBomb = data.file.other.IllusionCanPlaceBomb
+		IllusionMod.InstaDeath = data.file.other.IllusionInstaDeath
+		IllusionMod.PerfectIllusion = data.file.other.IllusionPerfectIllusion
 	end
 end)

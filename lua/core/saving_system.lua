@@ -15,11 +15,11 @@ function RestoredHearts:RoomSave(ent, noHourglass, gridIndex, allowSoulSave)
 end
 
 function RestoredHearts:AddDefaultFileSave(key, value)
-    RestoredHearts.SaveManager.DEFAULT_SAVE.file.other[key] = value
+    RestoredHearts:GameSave()[key] = value
 end
 
 function RestoredHearts:GetDefaultFileSave(key)
     if RestoredHearts.SaveManager.Utility.IsDataInitialized() then
-        return RestoredHearts.SaveManager.DEFAULT_SAVE.file.other[key]
+        return RestoredHearts:GameSave()[key]
     end
 end
