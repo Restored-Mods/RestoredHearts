@@ -68,7 +68,7 @@ function Helpers.IsLost(player)
     if REPENTOGON then
 		return player:GetHealthType() == HealthType.NO_HEALTH and player:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B
 	end
-	for _,pType in ipairs({PlayerType.PLAYER_THELOST, PlayerType.PLAYER_THELOST_B, PlayerType.PLAYER_JACOB2_B}) do
+	for _,pType in ipairs({PlayerType.PLAYER_THELOST, PlayerType.PLAYER_THELOST_B}) do
 		if Helpers.IsPlayerType(player, pType) then
 			return true
 		end
@@ -77,7 +77,7 @@ function Helpers.IsLost(player)
 end
 
 function Helpers.IsGhost(player)
-    return player:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE) or Helpers.IsLost(player)
+    return player:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE) or player:GetPlayerType() == PlayerType.PLAYER_JACOB2_B or Helpers.IsLost(player)
 end
 
 function Helpers.CanCollectCustomShopPickup(player, pickup)
@@ -255,6 +255,19 @@ function Helpers.GetBombRadiusFromDamage(damage,isBomber)
 	end
 end
 
+---@param player EntityPlayer
+function Helpers.AddCharge(player, amount, slot, force)
+	slot = slot or ActiveSlot.SLOT_PRIMARY
+	force = force or false
+	if REPENTOGON then
+		player:AddActiveCharge(amount, slot, true, false, force)
+	else
+		local charges = Helpers.GetCharge(player, slot)
+		local itemConfig = Isaac.GetItemConfig():GetCollectible(player:GetActiveItem(slot))
+		player:SetActiveCharge(math.min(charges + amount, itemConfig.MaxCharges * Helpers.BatteryChargeMult(player)), slot)
+		Game():GetHUD():FlashChargeBar(player, slot)
+	end
+end
 --self explanatory
 function Helpers.GetCharge(player,slot)
 	return player:GetActiveCharge(slot) + player:GetBatteryCharge(slot)
