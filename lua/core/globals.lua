@@ -11,7 +11,7 @@ RestoredHearts.SaveManager.Utility.AddDefaultRunData(RestoredHearts.SaveManager.
 RestoredHearts.RNG = RNG()
 
 RestoredHearts:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-	RestoredHearts.RNG:SetSeed(RestoredHearts.Game:GetSeeds():GetStartSeed())
+	RestoredHearts.RNG:SetSeed(RestoredHearts.Game:GetSeeds():GetStartSeed(), 35)
 end)
 
 RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.PRE_DATA_SAVE, function(_, data)

@@ -37,22 +37,6 @@ if REPENTOGON then
 		end
 	end
 	RestoredHearts:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, ComplianceImmortalLocal.ActOfImmortal)
-
-	function ComplianceImmortalLocal:ImmortalHeartIFrames(player, damage, flags, source, cd)
-		if player:GetData().ImmortalHeartDamage then
-			player = player:ToPlayer()
-			local cd = 20
-			player:ResetDamageCooldown()
-			player:SetMinDamageCooldown(cd)
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B or player:GetPlayerType() == PlayerType.PLAYER_ESAU
-			or player:GetPlayerType() == PlayerType.PLAYER_JACOB then
-				player:GetOtherTwin():ResetDamageCooldown()
-				player:GetOtherTwin():SetMinDamageCooldown(cd)
-			end
-			player:GetData().ImmortalHeartDamage = nil
-		end
-	end
-	RestoredHearts:AddCallback(ModCallbacks.MC_POST_TAKE_DMG, ComplianceImmortalLocal.ImmortalHeartIFrames, EntityType.ENTITY_PLAYER)
 else
 	function ComplianceImmortalLocal:OnPlayerInit(player)
 		local data = Helpers.GetData(player)
@@ -75,29 +59,7 @@ else
 		data.ActCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION)
 	end
 	RestoredHearts:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ComplianceImmortalLocal.ActOfImmortal, CacheFlag.CACHE_FIREDELAY)
-
-	function ComplianceImmortalLocal:ImmortalHeartIFrames(player)
-		if player:GetData().ImmortalHeartDamage then
-			local cd = 20
-			player:ResetDamageCooldown()
-			player:SetMinDamageCooldown(cd)
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B or player:GetPlayerType() == PlayerType.PLAYER_ESAU
-			or player:GetPlayerType() == PlayerType.PLAYER_JACOB then
-				player:GetOtherTwin():ResetDamageCooldown()
-				player:GetOtherTwin():SetMinDamageCooldown(cd)
-			end
-			player:GetData().ImmortalHeartDamage = nil
-		end
-	end
-	RestoredHearts:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ComplianceImmortalLocal.ImmortalHeartIFrames)
 end
-
-function ComplianceImmortalLocal:ImmortalHeal()
-	for i = 0, Game():GetNumPlayers() - 1 do
-		ComplianceImmortal.HealImmortalHeart(Isaac.GetPlayer(i))
-	end
-end
-RestoredHearts:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, ComplianceImmortalLocal.ImmortalHeal)
 
 ---@param pickup EntityPickup
 function ComplianceImmortalLocal:PreEternalSpawn(pickup)

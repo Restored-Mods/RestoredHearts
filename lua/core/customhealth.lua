@@ -91,7 +91,6 @@ local function HeartGfxSuffix(var, hud)
     return suf
 end
 
-
 local function SpriteChange(_, entity)
 	if entity.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_SUN
 	or entity.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_ILLUSION
@@ -118,9 +117,7 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
 	end
     if key == "HEART_IMMORTAL" then
 		if wasDepleted then
-			sfx:Play(RestoredHearts.Enums.SFX.Hearts.IMMORTAL_BREAK, 1, 0)
-			local shatterSPR = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_BREAK.Variant, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect():GetSprite()
-			shatterSPR.PlaybackSpeed = 2
+			ComplianceImmortal.ImmortalHeartBreak(player.Position)
 		else
 			player:GetData().ImmortalHeartDamage = true
 		end
@@ -161,9 +158,7 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
         local player = familiar.Player
         if player then
             if  ComplianceImmortal.GetImmortalHeartsNum(player) % 2 == 0 then
-                sfx:Play(RestoredHearts.Enums.SFX.Hearts.IMMORTAL_BREAK, 1, 0)
-                local shatterSPR = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_BREAK.Variant, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect():GetSprite()
-                shatterSPR.PlaybackSpeed = 2
+                ComplianceImmortal.ImmortalHeartBreak(player.Position)
             end
             local clot
             for _, s_clot in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLOOD_BABY, 20)) do
@@ -184,36 +179,6 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
         end
     end
 end)
-
---[[local function SpawnClot(_, familiar)
-    if familiar.SubType == 20 then
-        local player = familiar.Player
-        if player then
-            if  ComplianceImmortal.GetImmortalHeartsNum(player) % 2 == 0 then
-                sfx:Play(RestoredHearts.Enums.SFX.Hearts.IMMORTAL_BREAK, 1, 0)
-                local shatterSPR = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_BREAK.Variant, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect():GetSprite()
-                shatterSPR.PlaybackSpeed = 2
-            end
-            local clot
-            for _, s_clot in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLOOD_BABY, 20)) do
-                s_clot = s_clot:ToFamiliar()
-                if GetPtrHash(s_clot.Player) == GetPtrHash(player) and GetPtrHash(familiar) ~= GetPtrHash(s_clot) then
-                    clot = s_clot
-                    break
-                end
-            end
-            if clot ~= nil and clot.InitSeed ~= familiar.InitSeed then
-                local clotData = clot:GetData()
-                clotData.RC_HP = clotData.RC_HP + 1
-                local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_CHARGE.Variant, 0, clot.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
-                ImmortalEffect:GetSprite().Offset = Vector(0, -10)
-                familiar:Remove()
-            end
-        end
-    end
-end
-RestoredHearts:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, SpawnClot, FamiliarVariant.BLOOD_BABY)
-]]
 
 local function StaticClotHP(_, clot)
 	if clot.SubType == 20 or clot.SubType == 30 then

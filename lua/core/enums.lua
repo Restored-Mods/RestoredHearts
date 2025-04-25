@@ -1,6 +1,13 @@
 local Enums = {}
 
 
+Enums.Effects = 
+				{
+					IMMORTAL_HEART_CHARGE = Isaac.GetEntityVariantByName("Immortal Heart Charge"),
+					IMMORTAL_HEART_BREAK = Isaac.GetEntityVariantByName("Immortal Heart Break"),
+					
+				}
+
 Enums.Familiars = 
 				{
 					IMMORTAL_CLOT =

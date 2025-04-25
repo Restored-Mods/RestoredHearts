@@ -15,7 +15,7 @@
 	<sound name="ImmortalHeartBreak">
 		<sample weight="1" path="ImmortalHeart_Break.wav" />
 	</sound>
-	<sound name="immortal">
+	<sound name="ImmortalHeartPickup">
 		<sample weight="1" path="immortal.wav" />
 	</sound>
 	<sound name="PickupIllusion">
