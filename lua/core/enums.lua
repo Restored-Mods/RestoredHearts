@@ -38,7 +38,7 @@ Enums.SFX =
 				{
 					Hearts =
 							{
-								IMMORTAL_PICKUP = Isaac.GetSoundIdByName("immortal"),
+								IMMORTAL_PICKUP = Isaac.GetSoundIdByName("ImmortalHeartPickup"),
 								IMMORTAL_BREAK = Isaac.GetSoundIdByName("ImmortalHeartBreak"),
 								SUN_PICKUP = Isaac.GetSoundIdByName("PickupSun"),
 								SUN_BREAK = Isaac.GetSoundIdByName("SunBreak"),
