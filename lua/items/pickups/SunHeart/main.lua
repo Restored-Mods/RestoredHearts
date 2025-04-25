@@ -55,8 +55,11 @@ function ComplianceSunLocal:SunClear(rng, pos)
 							end
 						end
 						if charge < battery and newcharge > 0 then
-							player:SetActiveCharge(charge + newcharge, slot)
-							player:AddActiveCharge(newcharge, slot, true, false, true)
+							if REPENTOGON then
+								player:AddActiveCharge(newcharge, slot, true, false, true)
+							else
+								player:SetActiveCharge(charge + newcharge, slot)
+							end
 							Game():GetHUD():FlashChargeBar(player, slot)
 							sfx:Play(RestoredHearts.Enums.SFX.Hearts.SUN_PICKUP,1,0)
 							local BatteryEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BATTERY, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
