@@ -50,6 +50,7 @@ if REPENTOGON then
 	Enums.Achievements = {
 		ILLUSION_HEART = Isaac.GetAchievementIdByName("Illusion Heart"),
 		IMMORTAL_HEART = Isaac.GetAchievementIdByName("Immortal Heart"),
+		SUN_HEART = Isaac.GetAchievementIdByName("Sun Heart"),
 	}
 end
 

@@ -1,4 +1,5 @@
 <achievements gfxroot="gfx/ui/achievement/">
 	<achievement name="Illusion Heart" text="" gfx="achievement_illusionheart.png" />
 	<achievement name="Immortal Heart" text="" gfx="achievement_immortalheart.png" />
+	<achievement name="Sun Heart" text="" gfx="achievement_sunheart.png" />
 </achievements>
