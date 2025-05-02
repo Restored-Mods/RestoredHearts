@@ -466,7 +466,7 @@ function Helpers.TurnEnemyIntoGoldenMachine(enemy, player, rng)
     data.LuckySevenSlotObject:__Init(luckySevenSlotEntity)
     luckySevenSlotEntity:AddEntityFlags(EntityFlag.FLAG_NO_QUERY)
 
-	local slots = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "LuckySevenSlotsInRoom")
+	--local slots = TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "LuckySevenSlotsInRoom")
 	
 
     local sparkles = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.LUCKY_SEVEN_MACHINE_SPARKLES.Variant, 0, luckySevenSlotEntity.Position, Vector.Zero, luckySevenSlotEntity)
@@ -750,17 +750,6 @@ function Helpers.scheduleForUpdate(foo, delay, callback)
 	end
 end
 --#endregion
-
----@param item CollectibleType | integer
----@return boolean
-function Helpers.IsItemDisabled(item)
-	for _, disabledItem in ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredHearts, "DisabledItems")) do
-        if item == RestoredHearts.Enums.CollectibleType[disabledItem] then
-            return true
-        end
-    end
-	return false
-end
 
 ---@param collectible CollectibleType | integer
 ---@return boolean
