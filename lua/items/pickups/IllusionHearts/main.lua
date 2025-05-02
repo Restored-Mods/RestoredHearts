@@ -9,7 +9,7 @@ function IllusionModLocal:preIllusionHeartPickup(pickup, collider)
 			pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
 			pickup:GetSprite():Play("Collect", true)
 			pickup:Die()
-			IllusionMod:addIllusion(player, true, false)
+			IllusionMod:addIllusion(player, true)
 			sfx:Play(RestoredHearts.Enums.SFX.Hearts.ILLUSION_PICKUP, 1, 0, false)
 			return true
 		end
