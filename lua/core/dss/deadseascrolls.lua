@@ -245,15 +245,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
             end, false)
         end
     
-        
-    
-        if not ImGui.ElementExists("RestoredHeartsSettingsIllusionInstaDeath") then
-            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionInstaDeath", "Illusion insta death", function(val)
-                IllusionMod.InstaDeath = val
-            end, false)
-            ImGui.SetTooltip("RestoredHeartsSettingsIllusionInstaDeath", "Illusions skip death animation and removed immediately")
-        end
-    
         ImGui.AddCallback("RestoredHeartsSettingsWindow", ImGuiCallback.Render, function()
             ImGui.UpdateData("RestoredHeartsSettingsHeartsStyle", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("HeartStyleRender") - 1)
             ImGui.UpdateData("RestoredHeartsSettingsActGivesImmortalHearts", ImGuiData.Value, RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
@@ -262,7 +253,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
             end
             ImGui.UpdateData("RestoredHeartsSettingsIllusionPlaceBombs", ImGuiData.Value, IllusionMod.CanPlaceBomb)
             ImGui.UpdateData("RestoredHeartsSettingsIllusionPerfect", ImGuiData.Value, IllusionMod.PerfectIllusion)
-            ImGui.UpdateData("RestoredHeartsSettingsIllusionInstaDeath", ImGuiData.Value, IllusionMod.InstaDeath)
         end)
 	else
 
@@ -288,10 +278,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
 
         if ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
 			ImGui.RemoveElement("RestoredHeartsSettingsIllusionPerfect")
-		end
-
-        if ImGui.ElementExists("RestoredHeartsSettingsIllusionInstaDeath") then
-			ImGui.RemoveElement("RestoredHeartsSettingsIllusionInstaDeath")
 		end
 
         if not ImGui.ElementExists("restotredHeartSettingsNoWay") then
@@ -364,6 +350,14 @@ local restoredheartssdirectory = {
     heartsoptions = {
         title = 'hearts options',
         buttons = {
+           
+        },
+    },
+    settings = {
+        title = 'settings',
+        buttons = {
+            {str = '', nosel = true},
+            {str = 'hearts options', nosel = true, fzise = 2},
             {
                 str = 'hearts sprites',
 
@@ -557,30 +551,6 @@ local restoredheartssdirectory = {
                 tooltip = {strset = {'create perfect', 'illusions for', 'modded', 'characters?'}}
             },
             {str = '', nosel = true},
-            {
-                str = 'illusion insta death',
-                fsize = 2,
-                choices = {'no', 'yes'},
-                setting = 1,
-                variable = 'IllusionInstaDeath',
-
-                load = function ()
-                    return IllusionMod.InstaDeath and 2 or 1
-                end,
-
-                store = function(newOption)
-                    IllusionMod.InstaDeath = newOption == 2
-                end,
-
-                tooltip = {strset = {'illusions skip', 'death animation', 'and removed', 'immediately'}}
-            },
-        },
-    },
-    settings = {
-        title = 'settings',
-        buttons = {
-            {str = '', nosel = true},
-            {str = 'hearts options', dest = 'heartsoptions', tooltip = GenerateTooltip('mod\'s hearts customization'), fzise = 2},
             {
                 -- Creating gaps in your page can be done simply by inserting a blank button.
                 -- The "nosel" tag will make it impossible to select, so it'll be skipped over when traversing the menu, while still rendering!

@@ -34,7 +34,6 @@ RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.PRE_DATA_LOA
 			["ImmortalHeartSpawnChance"] = 20,
 			["ActOfContritionImmortal"] = false,
 			["IllusionCanPlaceBomb"] = IllusionMod.CanPlaceBomb,
-			["IllusionInstaDeath"] = IllusionMod.InstaDeath,
 			["IllusionPerfectIllusion"] = IllusionMod.PerfectIllusion,
 		}
 		for k,v in pairs(settings) do
@@ -50,7 +49,6 @@ RestoredHearts:AddCallback(RestoredHearts.SaveManager.SaveCallbacks.POST_DATA_LO
 	if not luaMod then
         IllusionMod.LoadSaveData(data.game.run.IllusionData)
 		IllusionMod.CanPlaceBomb = data.file.other.IllusionCanPlaceBomb
-		IllusionMod.InstaDeath = data.file.other.IllusionInstaDeath
 		IllusionMod.PerfectIllusion = data.file.other.IllusionPerfectIllusion
 	end
 end)
