@@ -4,17 +4,17 @@ Restored Hearts brings 3 Antibirth hearts to Repentance!
 
 ![](https://i.imgur.com/mCgNt8Z.png)
 
-Features:
+## Features:
 3 new heart pickups, each with their own abilities!
 
-Caution!
+## Caution!
 The following mods are included in some form within the Restored Hearts, and should not be used in conjuntion with it:
 Immortal Hearts 
 Sun Hearts
 
-Contributors 
+## Contributors:
 BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all this, Firework, Kotry, The Demisemihemidemisemiquaver, Lazarus, Lucia, chupeta, RatRatRat, PixelPlz, WitchAmy, Aceolotl, Yarik the Human, watchmeojo, We Strvn, lesser_star, and kittenchilly
 
 
-Special thanks to
+## Special thanks to:
 Public Entertainment Networked Interactive Software - For the original Antibirth mod as well as the content and concepts that this mod builds off of
