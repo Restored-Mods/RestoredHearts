@@ -3,7 +3,7 @@ Restored Hearts brings 3 Antibirth hearts to Repentance!
 
 ![](https://i.imgur.com/fu8tO7l.png)
 
-![](https://i.imgur.com/2nl7gVV.png)
+![](https://i.imgur.com/mCgNt8Z.png)
 
 - 3 new heart pickups, each with their own abilities!
 
