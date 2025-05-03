@@ -1,4 +1,4 @@
-local modname = "Restored Collection"
+local modname = "Restored Hearts"
 
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.0", [[{FSIZE3}restored hearts
 {{FSIZE3}}is out
