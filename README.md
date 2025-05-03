@@ -1,39 +1,20 @@
 # Restored Collection
-Restored Hearts brings 3 Antibirth hearts to Repentance!
 
-![](https://i.imgur.com/fu8tO7l.png)
+Restored Hearts brings 3 Antibirth hearts to Repentance!
 
 ![](https://i.imgur.com/mCgNt8Z.png)
 
-- 3 new heart pickups, each with their own abilities!
+[h2]Features[/h2]
+3 new heart pickups, each with their own abilities!
 
-![](https://i.imgur.com/4wDKe1V.png)
+[h2]Caution![/h2]
+[b][u]The following mods are included in some form within the Restored Hearts, and should not be used in conjuntion with it:[/u][/b]
+Immortal Hearts 
+Sun Hearts
 
-**The following mods are included in some form within the Restored Collection, and should not be used in conjuntion with it:**
-- Immortal Hearts by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
-- Sun Hearts by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
+[h2]Contributors[/h2] 
+BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all this, Firework, Kotry, The Demisemihemidemisemiquaver, Lazarus, Lucia, chupeta, RatRatRat, PixelPlz, WitchAmy, Aceolotl, Yarik the Human, watchmeojo, We Strvn, lesser_star, and kittenchilly
 
-![](https://i.imgur.com/SK84PpX.png)
 
-- 𝐃𝐢𝐫𝐞𝐜𝐭𝐨𝐫 = [Gabriel](https://steamcommunity.com/profiles/76561198170829227)
-- 𝐂𝐨𝐝𝐞𝐫𝐬 = [Akad](https://steamcommunity.com/profiles/76561198858875349), [BrakeDude](https://steamcommunity.com/id/brakedude), [fly_6](https://steamcommunity.com/id/fly_6), [im_tem](https://steamcommunity.com/id/im_tem), [Thicco Catto](https://steamcommunity.com/profiles/76561198330371330)
-- 𝐀𝐫𝐭𝐢𝐬𝐭𝐬 = [ALADAR](https://steamcommunity.com/profiles/76561199054232018), [chug all this](https://steamcommunity.com/id/hoofuccingboyherewego), [Firework](https://steamcommunity.com/id/Mattzilla1919), [Kotry](https://steamcommunity.com/profiles/76561198813796283), [The Demisemihemidemisemiquaver](https://steamcommunity.com/id/funnynotename)
-- 𝐓𝐫𝐚𝐧𝐬𝐥𝐚𝐭𝐨𝐫𝐬 = [BrakeDude](https://steamcommunity.com/id/brakedude), [Kotry](https://steamcommunity.com/profiles/76561198813796283), [XxX_Lucia_2007_XxX](https://steamcommunity.com/id/luciaprogamer), [chupeta](https://steamcommunity.com/profiles/76561199116410592)
-- 𝐏𝐥𝐚𝐲𝐭𝐞𝐬𝐭𝐞𝐫𝐬= [Akad](https://steamcommunity.com/profiles/76561198858875349),  [BrakeDude](https://steamcommunity.com/id/brakedude),[Kotry](https://steamcommunity.com/profiles/76561198813796283) [Sillst](https://steamcommunity.com/profiles/76561198374458982), [The Demisemihemidemisemiquaver](https://steamcommunity.com/id/funnynotename), [Thicco Catto](https://steamcommunity.com/profiles/76561198330371330), [We Strvn](https://steamcommunity.com/id/We_Strvn)
-
-![](https://i.imgur.com/SlXbHql.png) ![](https://i.imgur.com/xd2eafr.png)
-```
-Public Entertainment Networked Interactive Software - For the original Antibirth mod as well as the content and concepts that this mod builds off of
-WitchAmy - For contributions made whilst in the team
-kittenchilly - For contributions made whilst in the team
-PixelPlz - For contributions made whilst in the team
-RatRatRat - For contributions made whilst in the team
-```
-
-![](https://i.imgur.com/EDucsdc.png)
-
-![](https://i.imgur.com/OZNWMCq.png) [Restored Hearts Repository](https://github.com/Team-Compliance/RestoredHearts) ![](https://i.imgur.com/OZNWMCq.png)
-![](https://i.imgur.com/xK4Mor0.png) [TBOI: Compliance Discord Server](https://discord.gg/GdVnkV4Gwj) ![](https://i.imgur.com/xK4Mor0.png)
-![](https://i.imgur.com/GmVPmG0.png) [TBOI: Compliance YouTube](https://www.youtube.com/channel/UCEdAioGltx_hOsyDW57nvSw/featured) ![](https://i.imgur.com/GmVPmG0.png)
-![](https://i.imgur.com/jBFg02x.png) [TBOI: Compliance Twitter](https://twitter.com/ComplianceMods) ![](https://i.imgur.com/jBFg02x.png)
-![](https://i.imgur.com/MTKQKCX.png)
+[h2]Special thanks to[/h2] 
+[code][u]Public Entertainment Networked Interactive Software[/u] - For the original Antibirth mod as well as the content and concepts that this mod builds off of
