@@ -11,7 +11,7 @@ local function load()
         IMMORTAL_BREAK = Isaac.GetSoundIdByName("ImmortalHeartBreak")
     }
 
-    local effects = {
+    ComplianceImmortal.Effects = {
         IMMORTAL_HEART_CHARGE = Isaac.GetEntityVariantByName("Immortal Heart Charge"),
         IMMORTAL_HEART_BREAK = Isaac.GetEntityVariantByName("Immortal Heart Break"),
     }
@@ -37,7 +37,7 @@ local function load()
     
     function ComplianceImmortal.HealImmortalHeart(player) -- returns true if successful
         if ComplianceImmortal.GetImmortalHeartsNum(player) > 0 and ComplianceImmortal.GetImmortalHeartsNum(player) % 2 ~= 0 then
-            local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, effects.IMMORTAL_HEART_CHARGE, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
+            local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, ComplianceImmortal.Effects.IMMORTAL_HEART_CHARGE, 0, player.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
             ImmortalEffect:GetSprite().Offset = Vector(0, -22)
             SFXManager():Play(sounds.IMMORTAL_PICKUP, 1, 0)
             ComplianceImmortal.AddImmortalHearts(player, 1)
@@ -48,7 +48,7 @@ local function load()
 
     function ComplianceImmortal.ImmortalHeartBreak(position)
         SFXManager():Play(sounds.IMMORTAL_BREAK, 1, 0)
-        local shatterSPR = Isaac.Spawn(EntityType.ENTITY_EFFECT, effects.IMMORTAL_HEART_BREAK, 0, position + Vector(0, 1), Vector.Zero, nil):ToEffect():GetSprite()
+        local shatterSPR = Isaac.Spawn(EntityType.ENTITY_EFFECT, ComplianceImmortal.Effects.IMMORTAL_HEART_BREAK, 0, position + Vector(0, 1), Vector.Zero, nil):ToEffect():GetSprite()
         shatterSPR.PlaybackSpeed = 2
     end
 

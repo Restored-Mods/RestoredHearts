@@ -17,7 +17,7 @@ function ImmortalClotLocal:ClotHeal()
 					elseif entity2.SubType ~= 20 then
 						entity2.HitPoints = entity2.HitPoints + 2
 					end
-					local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_CHARGE.Variant, 0, entity2.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
+					local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, ComplianceImmortal.Effects.IMMORTAL_HEART_CHARGE, 0, entity2.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
 					ImmortalEffect:GetSprite().Offset = Vector(0, -10)
 					entity2:GetData().Healed = true
 					if not sfx:IsPlaying(RestoredHearts.Enums.SFX.Hearts.IMMORTAL_PICKUP) then
@@ -32,7 +32,7 @@ function ImmortalClotLocal:ClotHeal()
 		else
 			entity:GetData().RC_HP = entity:GetData().RC_HP + 2
 		end
-		local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_CHARGE.Variant, 0, entity.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
+		local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, ComplianceImmortal.Effects.IMMORTAL_HEART_CHARGE, 0, entity.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
 		ImmortalEffect:GetSprite().Offset = Vector(0, -10)
 		ImmortalEffect:GetSprite().Offset = Vector(0, -10)
 		

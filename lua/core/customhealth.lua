@@ -171,7 +171,7 @@ CustomHealthAPI.Library.AddCallback("RestoredHearts", CustomHealthAPI.Enums.Call
             if clot ~= nil and clot.InitSeed ~= familiar.InitSeed then
                 local clotData = clot:GetData()
                 clotData.RC_HP = clotData.RC_HP + 1
-                local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredHearts.Enums.Entities.IMMORTAL_HEART_CHARGE.Variant, 0, clot.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
+                local ImmortalEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, ComplianceImmortal.Effects.IMMORTAL_HEART_CHARGE, 0, clot.Position + Vector(0, 1), Vector.Zero, nil):ToEffect()
                 ImmortalEffect:GetSprite().Offset = Vector(0, -10)
                 familiar:Remove()
                 return true
