@@ -223,7 +223,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
     
     
         for _, str in ipairs({"Immortal", "Sun", "Illusion"}) do
-            if ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
+            if not ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
                 ImGui.AddDragInteger("RestoredHeartsSettingsWindow", "RestoredHeartsSettings"..str.."Heart", str.." Heart", function(val)
                     RestoredHearts:AddDefaultFileSave(str.."HeartSpawnChance", val)
                 end, 20, 1, 0, 100)
@@ -232,17 +232,17 @@ local function UpdateImGuiMenu(IsDataInitialized)
         end
     
         if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPlaceBombs") then
-            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPlaceBombs", "Can illusions place bombs?", function(val)
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPlaceBombs", "Illusions can place bombs", function(val)
                 IllusionMod.CanPlaceBomb = val
             end, false)
+            ImGui.SetTooltip("RestoredHeartsSettingsIllusionPlaceBombs", "Illusion place bombs same bombs as player")
         end
     
-        
-    
         if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
-            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPerfect", "Create perfect Illusion for modded characters?", function(val)
+            ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPerfect", "Perfect illusion", function(val)
                 IllusionMod.PerfectIllusion = val
             end, false)
+            ImGui.SetTooltip("RestoredHeartsSettingsIllusionPerfect", "Makes exact copy of player character")
         end
     
         ImGui.AddCallback("RestoredHeartsSettingsWindow", ImGuiCallback.Render, function()
