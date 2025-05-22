@@ -13,7 +13,7 @@ Immortal Hearts
 Sun Hearts
 
 ## Contributors:
-BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all this, Firework, Kotry, The Demisemihemidemisemiquaver, Lazarus, Lucia, chupeta, RatRatRat, PixelPlz, WitchAmy, Aceolotl, Yarik the Human, watchmeojo, We Strvn, lesser_star, kittenchilly, and sipher nil
+BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all this, Firework, Kotry, The Demisemihemidemisemiquaver, Lazarus, Lucia, chupeta, RatRatRat, PixelPlz, Aceolotl, Yarik the Human, watchmeojo, We Strvn, lesser_star, kittenchilly, and sipher nil
 
 
 ## Special thanks to:
