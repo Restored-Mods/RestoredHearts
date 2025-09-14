@@ -426,6 +426,7 @@ local restoredheartssdirectory = {
                     RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", var == 1)
                     UpdateActOfContritionEncyclopedia(var == 1)
                 end,
+                displayif = function() return not (REPENTANCE_PLUS and not REPENTOGON) end,
 
                 -- A simple way to define tooltips is using the "strset" tag, where each string in the table is another line of the tooltip
                 tooltip = {strset = {"replaces act", "of contrition's", "eternal heart", "with an", "immortal", "heart", "like in", "antibirth"}}
@@ -692,7 +693,12 @@ if REPENTOGON then
 end
 
 RestoredHearts:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE + 10, function()
-    UpdateActOfContritionEncyclopedia(RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
+    if REPENTANCE_PLUS and not REPENTOGON then
+        RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", false)
+        UpdateActOfContritionEncyclopedia(false)
+    else
+        UpdateActOfContritionEncyclopedia(RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal"))
+    end
     ChangeUIHeartsAnim(RestoredHearts:GetDefaultFileSave("HeartStyleRender"))
 end)
 
