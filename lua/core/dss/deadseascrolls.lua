@@ -195,6 +195,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
                 local var = index + 1
                 RestoredHearts:AddDefaultFileSave("HeartStyleRender", var)
                 ChangeUIHeartsAnim(var)
+                RestoredHearts.SaveManager.Save()
             end, {
                 "Vanilla",
                 "Aladar",
@@ -216,6 +217,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
             ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsActGivesImmortalHearts", "Act of Contrition gives Immortal Heart", function(val)
                 UpdateActOfContritionEncyclopedia(val)
                 RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", val)
+                RestoredHearts.SaveManager.Save()
             end, true)
         
             ImGui.SetTooltip("RestoredHeartsSettingsActGivesImmortalHearts", "Replaces Act of Contrition's eternal heart with\nan Immortal Heart like in Antibirth")
@@ -226,6 +228,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
             if not ImGui.ElementExists("RestoredHeartsSettings"..str.."Heart") then
                 ImGui.AddDragInteger("RestoredHeartsSettingsWindow", "RestoredHeartsSettings"..str.."Heart", str.." Heart", function(val)
                     RestoredHearts:AddDefaultFileSave(str.."HeartSpawnChance", val)
+                    RestoredHearts.SaveManager.Save()
                 end, 20, 1, 0, 100)
                 ImGui.SetTooltip("RestoredHeartsSettings"..str.."Heart", str.." Heart spawn chance")
             end
@@ -234,6 +237,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
         if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPlaceBombs") then
             ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPlaceBombs", "Illusions can place bombs", function(val)
                 IllusionMod.CanPlaceBomb = val
+                RestoredHearts.SaveManager.Save()
             end, false)
             ImGui.SetTooltip("RestoredHeartsSettingsIllusionPlaceBombs", "Illusion place bombs same bombs as player")
         end
@@ -241,6 +245,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
         if not ImGui.ElementExists("RestoredHeartsSettingsIllusionPerfect") then
             ImGui.AddCheckbox("RestoredHeartsSettingsWindow", "RestoredHeartsSettingsIllusionPerfect", "Perfect illusion", function(val)
                 IllusionMod.PerfectIllusion = val
+                RestoredHearts.SaveManager.Save()
             end, false)
             ImGui.SetTooltip("RestoredHeartsSettingsIllusionPerfect", "Makes exact copy of player character")
         end
@@ -392,6 +397,7 @@ local restoredheartssdirectory = {
                 store = function(var)
                     RestoredHearts:AddDefaultFileSave("HeartStyleRender", var)
                     ChangeUIHeartsAnim(var)
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 -- A simple way to define tooltips is using the "strset" tag, where each string in the table is another line of the tooltip
@@ -425,6 +431,7 @@ local restoredheartssdirectory = {
                 store = function(var)
                     RestoredHearts:AddDefaultFileSave("ActOfContritionImmortal", var == 1)
                     UpdateActOfContritionEncyclopedia(var == 1)
+                    RestoredHearts.SaveManager.Save()
                 end,
                 displayif = function() return not (REPENTANCE_PLUS and not REPENTOGON) end,
 
@@ -455,6 +462,7 @@ local restoredheartssdirectory = {
                 end,
                 store = function(newOption)
                     RestoredHearts:AddDefaultFileSave("ImmortalHeartSpawnChance", newOption)
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 tooltip = {strset = {'how often', 'immortal hearts', 'can spawn?'}},
@@ -483,6 +491,7 @@ local restoredheartssdirectory = {
                 end,
                 store = function(newOption)
                     RestoredHearts:AddDefaultFileSave("SunHeartSpawnChance", newOption)
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 tooltip = {strset = {'how often', 'sun hearts', 'can spawn?'}},
@@ -511,6 +520,7 @@ local restoredheartssdirectory = {
                 end,
                 store = function(newOption)
                     RestoredHearts:AddDefaultFileSave("IllusionHeartSpawnChance", newOption)
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 tooltip = {strset = {'how often', 'illusion hearts', 'can spawn?'}},
@@ -529,6 +539,7 @@ local restoredheartssdirectory = {
 
                 store = function(newOption)
                     IllusionMod.CanPlaceBomb = newOption == 2
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 tooltip = {strset = {'can illusions', 'place bombs?'}}
@@ -547,6 +558,7 @@ local restoredheartssdirectory = {
 
                 store = function(newOption)
                     IllusionMod.PerfectIllusion = newOption == 2
+                    RestoredHearts.SaveManager.Save()
                 end,
 
                 tooltip = {strset = {'create perfect', 'illusions for', 'modded', 'characters?'}}
