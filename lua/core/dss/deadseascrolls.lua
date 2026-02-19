@@ -363,6 +363,7 @@ local restoredheartssdirectory = {
         buttons = {
             {str = '', nosel = true},
             {str = 'hearts options', nosel = true, fzise = 2},
+            {str = '', nosel = true},
             {
                 str = 'hearts sprites',
 
@@ -516,7 +517,7 @@ local restoredheartssdirectory = {
                 variable = "IllusionHeartSpawnChance",
 
                 load = function()
-                    return RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") or 20
+                    return RestoredHearts:GetDefaultFileSave("IllusionHeartSpawnChance") or 20
                 end,
                 store = function(newOption)
                     RestoredHearts:AddDefaultFileSave("IllusionHeartSpawnChance", newOption)

@@ -1,5 +1,11 @@
 local modname = "Restored Hearts"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.1", [[{FSIZE2}fixes
+- fixed dss settings of immortal
+hearts affecting illusion hearts
+]],
+{"restored", "hearts", "", "v1.3.1", "release"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.3", [[{FSIZE2}fixes
 - fixed dss settings not saving
 ]],
