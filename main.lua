@@ -34,6 +34,4 @@ include("lua.items.pickups.SunHeart.main")
 include("lua.items.pickups.IllusionHearts.main")
 
 --mod compatibility
-include("lua.mod_compat.eid.eid")
-include("lua.mod_compat.encyclopedia.encyclopedia")
-include("lua.mod_compat.MiniMapiItems.MiniMapiItems")
+include("lua.mod_compat.main")
