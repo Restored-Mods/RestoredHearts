@@ -1,5 +1,10 @@
 local modname = "Restored Hearts"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.2", [[{FSIZE2}fixes
+- fixed minimapapi icons
+]],
+{"restored", "hearts", "", "v1.3.2", "release"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.1", [[{FSIZE2}fixes
 - fixed dss settings of immortal
 hearts affecting illusion hearts
