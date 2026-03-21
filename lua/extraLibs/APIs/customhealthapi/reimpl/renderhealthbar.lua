@@ -271,7 +271,7 @@ function CustomHealthAPI.Helper.GetHealthBarPos(player, playerSlot, numOtherHear
 	local pos = Vector.Zero
 
 	if playerSlot == -1 then -- Soulstones / Strawman / etc.
-		pos = Isaac.WorldToScreen(player.Position) - Game():GetRoom():GetRenderScrollOffset() + Vector(-5 * (math.min(numOtherHearts, 6) - 1), -30)
+		pos = Isaac.WorldToScreen(player.Position) + Vector(-5 * (math.min(numOtherHearts, 6) - 1), -30)
 	elseif playerSlot == 4 and esauFlipped then -- P1's Esau when in the bottom right corner
 		pos = Vector(bottomRight.X - 48 - math.floor(hudOffset * 1.6 + 0.5),
 		             bottomRight.Y - 27 - math.floor(hudOffset * 1.2 + 0.5) / 2)
