@@ -1,5 +1,11 @@
 local modname = "Restored Hearts"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.3", [[{FSIZE2}fixes
+- fixed clone's icon in big
+rooms
+]],
+{"restored", "hearts", "", "v1.3.3", "release"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.2", [[{FSIZE2}fixes
 - fixed minimapapi icons
 ]],
