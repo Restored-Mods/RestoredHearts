@@ -3,13 +3,16 @@ local Helpers = RestoredHearts.Helpers
 local sfx = SFXManager()
 
 function ComplianceImmortalLocal:ImmortalHeartCollision(pickup, collider)
-	if collider.Type == EntityType.ENTITY_PLAYER and pickup.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL then
+	if
+		collider.Type == EntityType.ENTITY_PLAYER
+		and pickup.SubType == RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL
+	then
 		local player = collider:ToPlayer()
 		if not Helpers.CanCollectCustomShopPickup(player, pickup) then
 			return true
 		end
 		if ComplianceImmortal.CanPickImmortalHearts(player) then
-			local collect = Helpers.CollectCustomPickup(player,pickup)
+			local collect = Helpers.CollectCustomPickup(player, pickup)
 			if collect ~= nil then
 				return collect
 			end
@@ -26,12 +29,19 @@ function ComplianceImmortalLocal:ImmortalHeartCollision(pickup, collider)
 		end
 	end
 end
-RestoredHearts:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, ComplianceImmortalLocal.ImmortalHeartCollision, PickupVariant.PICKUP_HEART)
+RestoredHearts:AddCallback(
+	ModCallbacks.MC_PRE_PICKUP_COLLISION,
+	ComplianceImmortalLocal.ImmortalHeartCollision,
+	PickupVariant.PICKUP_HEART
+)
 
 if REPENTOGON then
 	function ComplianceImmortalLocal:ActOfImmortal(collectible, charge, firstTime, slot, VarData, player)
-		if firstTime and collectible == CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION
-		and RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") then
+		if
+			firstTime
+			and collectible == CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION
+			and RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal")
+		then
 			player:AddEternalHearts(-1)
 			ComplianceImmortal.AddImmortalHearts(player, 2)
 		end
@@ -45,27 +55,72 @@ else
 	RestoredHearts:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, ComplianceImmortalLocal.OnPlayerInit)
 
 	function ComplianceImmortalLocal:ActOfImmortal(player, cache)
-		if player.Parent ~= nil then return end
-		if RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") == false then return end
+		if player.Parent ~= nil then
+			return
+		end
+		if RestoredHearts:GetDefaultFileSave("ActOfContritionImmortal") == false then
+			return
+		end
 		if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
 			player = player:GetMainTwin()
 		end
 		local data = Helpers.GetData(player)
-		if data.ActCount and player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION) > data.ActCount then
+		if
+			data.ActCount
+			and player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION) > data.ActCount
+		then
 			local p = player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN and player:GetSubPlayer() or player
 			player:AddEternalHearts(-1)
 			ComplianceImmortal.AddImmortalHearts(p, 2)
 		end
 		data.ActCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION)
 	end
-	RestoredHearts:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ComplianceImmortalLocal.ActOfImmortal, CacheFlag.CACHE_FIREDELAY)
+	RestoredHearts:AddCallback(
+		ModCallbacks.MC_EVALUATE_CACHE,
+		ComplianceImmortalLocal.ActOfImmortal,
+		CacheFlag.CACHE_FIREDELAY
+	)
 end
 
 ---@param pickup EntityPickup
 function ComplianceImmortalLocal:PreEternalSpawn(pickup)
-	if TSIL.Random.GetRandom(pickup.InitSeed) >= (1 - RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") / 100)
-	and pickup.SubType == HeartSubType.HEART_ETERNAL then
-		pickup:Morph(pickup.Type, PickupVariant.PICKUP_HEART, RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL, true, true)
+	if
+		RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") > 0
+		and TSIL.Random.GetRandom(pickup.InitSeed)
+			>= (1 - RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") / 100)
+	then
+		pickup:Morph(
+			pickup.Type,
+			PickupVariant.PICKUP_HEART,
+			RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL,
+			true,
+			true
+		)
 	end
 end
-RestoredHearts:AddCallback(TSIL.Enums.CustomCallback.POST_PICKUP_INIT_FIRST, ComplianceImmortalLocal.PreEternalSpawn, PickupVariant.PICKUP_HEART)
+RestoredHearts:AddCallback(
+	TSIL.Enums.CustomCallback.POST_PICKUP_INIT_FIRST,
+	ComplianceImmortalLocal.PreEternalSpawn,
+	{ PickupVariant.PICKUP_HEART, HeartSubType.HEART_ETERNAL }
+)
+
+---@param pickup EntityPickup
+function ComplianceImmortalLocal:PreImmortalSpawn(pickup)
+	if
+		RestoredHearts:GetDefaultFileSave("ImmortalHeartSpawnChance") <= 0
+	then
+		pickup:Morph(
+			pickup.Type,
+			PickupVariant.PICKUP_HEART,
+			HeartSubType.HEART_ETERNAL,
+			true,
+			true
+		)
+	end
+end
+RestoredHearts:AddPriorityCallback(
+	TSIL.Enums.CustomCallback.POST_PICKUP_INIT_FIRST,
+	1,
+	ComplianceImmortalLocal.PreImmortalSpawn,
+	{ PickupVariant.PICKUP_HEART, RestoredHearts.Enums.Pickups.Hearts.HEART_IMMORTAL }
+)

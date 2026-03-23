@@ -1,6 +1,15 @@
 local modname = "Restored Hearts"
 
-DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.3", [[{FSIZE2}fixes
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.3", [[{{FSIZE2}}added
+- modded hearts now convert to
+vanilla hearts if chance is set
+to zero in settings
+
+- super secret rooms with modded
+hearts convert all hearts to
+modded
+
+{{FSIZE2}}fixes
 - fixed clone's icon in big
 rooms
 ]],
