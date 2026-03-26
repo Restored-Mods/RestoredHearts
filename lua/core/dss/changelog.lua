@@ -7,7 +7,8 @@ to zero in settings
 
 - super secret rooms with modded
 hearts convert all hearts to
-modded
+modded if spawn chance set to be
+not zero
 
 {{FSIZE2}}fixes
 - fixed clone's icon in big
