@@ -11,8 +11,8 @@ modded if spawn chance set to be
 not zero
 
 {{FSIZE2}}fixes
-- fixed clone's icon in big
-rooms
+- fixed clone's health icon in big
+rooms (by piber)
 ]],
 {"restored", "hearts", "", "v1.3.3", "release"}, false, false)
 
