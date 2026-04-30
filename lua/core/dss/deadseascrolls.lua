@@ -366,7 +366,7 @@ local restoredheartssdirectory = {
             {str = '', nosel = true},
             {
                 str = 'hearts sprites',
-
+                fsize = 2,
                 -- The "choices" tag on a button allows you to create a multiple-choice setting
                 
                 choices = {
