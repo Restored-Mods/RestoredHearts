@@ -1,5 +1,10 @@
 local modname = "Restored Hearts"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.4", [[{{FSIZE2}}fixes
+- fixed eid errors on launch
+]],
+{"restored", "hearts", "", "v1.3.4", "release"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.3.3", [[{{FSIZE2}}added
 - modded hearts now convert to
 vanilla hearts if chance is set
